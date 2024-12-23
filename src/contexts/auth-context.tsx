@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react"
-import { usePathname, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 
 import { Login } from "@/schemas/login-schema"
@@ -24,13 +24,12 @@ const AuthContext = createContext({} as AuthContextProps)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const router = useRouter()
-	const pathname = usePathname()
 	const { setIsLoading } = useLoading()
 	const [user, setUser] = useState<User | null>(null)
 	const isAuthenticated = !!user
 
 	useEffect(() => {
-		if (!["/login", "/register"].includes(pathname)) {
+		if (!["/login", "/register"].includes(window.location.pathname)) {
 			refreshUser()
 		}
 	}, [])

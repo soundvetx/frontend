@@ -1,7 +1,6 @@
 "use client"
 
 import React from "react"
-import { usePathname } from "next/navigation"
 import {
 	LogOut,
 	User as UserIcon,
@@ -33,7 +32,6 @@ interface ProfileDropdownMenuProps extends React.HTMLAttributes<HTMLDivElement> 
 
 const ProfileDropdownMenu = React.forwardRef<HTMLDivElement, ProfileDropdownMenuProps>(
 	({ user, canNavigate = true, beforeNavigate = () => {} }, ref) => {
-	const pathName = usePathname()
 	const { signOut } = useAuth()
 
 	const userTypeName = UserTypes.find((type) => type.value === user.type)?.label
@@ -58,7 +56,7 @@ const ProfileDropdownMenu = React.forwardRef<HTMLDivElement, ProfileDropdownMenu
 				<DropdownMenuGroup>	
 					<CustomDropdownMenuItem
 						route="/users"
-						selected={pathName === "/users"}
+						selected={window.location.pathname === "/users"}
 						needsAdminPrivileges={true}
 						canNavigate={canNavigate}
 						beforeNavigate={beforeNavigate}
@@ -69,7 +67,7 @@ const ProfileDropdownMenu = React.forwardRef<HTMLDivElement, ProfileDropdownMenu
 
 					<CustomDropdownMenuItem
 						route="/"
-						selected={pathName === "/"}
+						selected={window.location.pathname === "/"}
 						needsAdminPrivileges={false}
 						canNavigate={canNavigate}
 						beforeNavigate={beforeNavigate}
@@ -84,7 +82,7 @@ const ProfileDropdownMenu = React.forwardRef<HTMLDivElement, ProfileDropdownMenu
 				<DropdownMenuGroup>
 					<CustomDropdownMenuItem
 						route="/profile"
-						selected={pathName === "/profile"}
+						selected={window.location.pathname === "/profile"}
 						needsAdminPrivileges={false}
 						canNavigate={canNavigate}
 						beforeNavigate={beforeNavigate}
