@@ -18,7 +18,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { User, UserType } from "@/types/user"
 import { UserTypes } from "@/utils/options"
-import { getAbbreviationFromUf } from "@/utils/get-abbreviation-from-uf"
 import { useAuth } from "@/contexts/auth-context"
 import { CustomDropdownMenuItem } from "./custom-dropdown-menu-item"
 
