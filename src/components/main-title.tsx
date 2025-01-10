@@ -1,6 +1,9 @@
 import React from "react"
+
 import { cn } from "@/lib/utils"
 import { cva, VariantProps } from "class-variance-authority"
+
+import SoundvetxLogo from "@/assets/images/logo_primary.png"
 
 const mainTitleVariants = cva("font-bold tracking-tight text-center", {
 	variants: {
@@ -16,13 +19,20 @@ const mainTitleVariants = cva("font-bold tracking-tight text-center", {
 })
 
 interface MainTitleProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof mainTitleVariants> {
-	title: string
+	title?: string
 	subtitle?: string
+	showLogo?: boolean
 }
 
 const MainTitle = React.forwardRef<HTMLDivElement, MainTitleProps>(
-	({ className, size, title, subtitle, ...props }, ref) => {
+	({ className, size, title, subtitle, showLogo = false, ...props }, ref) => {
 		const id = React.useId()
+
+		if (showLogo) {
+			return (
+				<img src={SoundvetxLogo} alt="SoundvetX" />
+			)
+		}
 
 		return (
 			<div

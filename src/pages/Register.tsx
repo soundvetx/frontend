@@ -45,7 +45,7 @@ export function RegisterPage() {
 
 	return (
 		<main className="flex flex-col items-center justify-center w-full h-full min-h-dvh max-w-md mx-auto py-8 px-4">
-			<MainTitle title="SoundvetX" size="large" />
+			<MainTitle showLogo />
 
 			<Form {...form}>
 				<form
