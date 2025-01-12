@@ -3,7 +3,7 @@ import { Header } from "@/components/header";
 import { Switch } from "@/components/ui/switch";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { useLoading } from "@/contexts/loading-context";
-import { canSendWhatsappUser } from "@/http/user/can-send-whatsapp-user";
+import { canSendMessageUser } from "@/http/user/can-send-message-user";
 import { deleteUser } from "@/http/user/delete-user";
 import { getUsers } from "@/http/user/get-users";
 import { restoreUser } from "@/http/user/restore-user";
@@ -116,17 +116,17 @@ export function UsersPage() {
         }
     }
 
-    async function handleCanSendWhatsappChange(user: User, checked: boolean) {
+    async function handleCanSendMessageChange(user: User, checked: boolean) {
         setIsLoading(true)
 
         try {
-            await canSendWhatsappUser({ userId: user.id.toString() })
+            await canSendMessageUser({ userId: user.id.toString() })
 
             const items = users.map(item => {
                 if (item.id === user.id) {
                     return {
                         ...item,
-                        canSendWhatsapp: checked
+                        canSendMessage: checked
                     }
                 }
     
@@ -228,7 +228,7 @@ export function UsersPage() {
                             <TableHead className="min-w-[150px]">E-mail</TableHead>
                             <TableHead className="min-w-[100px]">CRMV</TableHead>
                             <TableHead className="min-w-[200px]">UF</TableHead>
-                            <TableHead className="min-w-[200px] text-right">Pode mandar WhatsApp?</TableHead>
+                            <TableHead className="min-w-[200px] text-right">Pode mandar mensagem?</TableHead>
                             <TableHead className="min-w-[100px]"></TableHead>
                         </TableRow>
                     </TableHeader>
@@ -245,9 +245,9 @@ export function UsersPage() {
                                     <TableCell>{user.type === UserType.Veterinarian ? user.uf : "Não se aplica"}</TableCell>
                                     <TableCell className="text-right">
                                         <Switch
-                                            checked={user.canSendWhatsapp}
+                                            checked={user.canSendMessage}
                                             onCheckedChange={(checked) => {
-                                                handleCanSendWhatsappChange(user, checked)
+                                                handleCanSendMessageChange(user, checked)
                                             }}
                                         />
                                     </TableCell>

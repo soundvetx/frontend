@@ -8,62 +8,62 @@
 	:root {
 		--font-sans: 'Poppins', sans-serif;
 
-		--background: 0, 0%, 98%;
-		--foreground: 152, 19%, 18%;
-		--card: 34, 89%, 61%;
-		--card-foreground: 152, 19%, 18%;
-		--popover: 0, 0%, 98%;
-		--popover-foreground: 152, 19%, 18%;
-		--primary: 195, 34%, 41%;
-		--primary-foreground: 0, 0%, 100%;
-		--secondary: 90, 25%, 46%;
-		--secondary-foreground: 152, 19%, 18%;
-		--muted: 214.3 31.8% 91.4%;
-		--muted-foreground: 90, 25%, 46%;
-		--accent: 195, 34%, 41%;
-		--accent-foreground: 0, 0%, 100%;
-		--destructive: 34, 89%, 61%;
-		--destructive-foreground: 0, 0%, 100%;
-		--border: 214.3 31.8% 91.4%;
-		--input: 214.3 31.8% 91.4%;
-		--ring: 195, 34%, 41%;
+		--background: 0, 0%, 98%; /* #fafafa */
+		--foreground: 152, 19%, 18%; /* #261a1a */
+		--card: 34, 89%, 61%; /* #f7b55a */
+		--card-foreground: 152, 19%, 18%; /* #261a1a */
+		--popover: 0, 0%, 98%; /* #fafafa */
+		--popover-foreground: 152, 19%, 18%; /* #261a1a */
+		--primary: 195, 34%, 41%; /* #347d9e */
+		--primary-foreground: 0, 0%, 100%; /* #ffffff */
+		--secondary: 90, 25%, 46%; /* #6e8e75 */
+		--secondary-foreground: 152, 19%, 18%; /* #261a1a */
+		--muted: 214.3 31.8% 91.4%; /* #d9e2f1 */
+		--muted-foreground: 90, 25%, 46%; /* #6e8e75 */
+		--accent: 195, 34%, 41%; /* #347d9e */
+		--accent-foreground: 0, 0%, 100%; /* #ffffff */
+		--destructive: 34, 89%, 61%; /* #f7b55a */
+		--destructive-foreground: 0, 0%, 100%; /* #ffffff */
+		--border: 214.3 31.8% 91.4%; /* #d9e2f1 */
+		--input: 214.3 31.8% 91.4%; /* #d9e2f1 */
+		--ring: 195, 34%, 41%; /* #347d9e */
 		--radius: 0.5rem;
-		--chart-1: 34, 89%, 61%;
-		--chart-2: 195, 34%, 41%;
-		--chart-3: 229, 38%, 25%;
-		--chart-4: 90, 25%, 46%;
-		--chart-5: 167, 44%, 27%;
+		--chart-1: 34, 89%, 61%; /* #f7b55a */
+		--chart-2: 195, 34%, 41%; /* #347d9e */
+		--chart-3: 229, 38%, 25%; /* #1e3a5f */
+		--chart-4: 90, 25%, 46%; /* #6e8e75 */
+		--chart-5: 167, 44%, 27%; /* #2b6e4f */
 		--loading-background: rgba(255, 255, 255, 0.6);
-		--loading-foreground: 152, 19%, 18%;
+		--loading-foreground: 152, 19%, 18%; /* #261a1a */
 	}
 
 	.dark {
-		--background: 152, 30%, 16%;
-		--foreground: 34, 89%, 61%;
-		--card: 229, 38%, 25%;
-		--card-foreground: 34, 89%, 61%;
-		--popover: 229, 38%, 25%;
-		--popover-foreground: 34, 89%, 61%;
-		--primary: 195, 34%, 41%;
-		--primary-foreground: 152, 30%, 16%;
-		--secondary: 90, 25%, 46%;
-		--secondary-foreground: 34, 89%, 61%;
-		--muted: 152, 19%, 18%;
-		--muted-foreground: 90, 25%, 46%;
-		--accent: 34, 89%, 61%;
-		--accent-foreground: 152, 19%, 18%;
-		--destructive: 229, 38%, 25%;
-		--destructive-foreground: 34, 89%, 61%;
-		--border: 167, 44%, 27%;
-		--input: 167, 44%, 27%;
-		--ring: 195, 34%, 41%;
-		--chart-1: 34, 89%, 61%;
-		--chart-2: 195, 34%, 41%;
-		--chart-3: 229, 38%, 25%;
-		--chart-4: 90, 25%, 46%;
-		--chart-5: 167, 44%, 27%;
+		--background: 152, 30%, 16%; /* #1a2b2b */
+		--foreground: 34, 89%, 61%; /* #f7b55a */
+		--card: 229, 38%, 25%; /* #1e3a5f */
+		--card-foreground: 34, 89%, 61%; /* #f7b55a */
+		--popover: 229, 38%, 25%; /* #1e3a5f */
+		--popover-foreground: 34, 89%, 61%; /* #f7b55a */
+		--primary: 195, 34%, 41%; /* #347d9e */
+		--primary-foreground: 152, 30%, 16%; /* #1a2b2b */
+		--secondary: 90, 25%, 46%; /* #6e8e75 */
+		--secondary-foreground: 34, 89%, 61%; /* #f7b55a */
+		--muted: 152, 19%, 18%; /* #261a1a */
+		--muted-foreground: 90, 25%, 46%; /* #6e8e75 */
+		--accent: 34, 89%, 61%; /* #f7b55a */
+		--accent-foreground: 152, 19%, 18%; /* #261a1a */
+		--destructive: 229, 38%, 25%; /* #1e3a5f */
+		--destructive-foreground: 34, 89%, 61%; /* #f7b55a */
+		--border: 167, 44%, 27%; /* #2b6e4f */
+		--input: 167, 44%, 27%; /* #2b6e4f */
+		--ring: 195, 34%, 41%; /* #347d9e */
+		--chart-1: 34, 89%, 61%; /* #f7b55a */
+		--chart-2: 195, 34%, 41%; /* #347d9e */
+		--chart-3: 229, 38%, 25%; /* #1e3a5f */
+		--chart-4: 90, 25%, 46%; /* #6e8e75 */
+		--chart-5: 167, 44%, 27%; /* #2b6e4f */
 		--loading-background: rgba(255, 255, 255, 0.2);
-		--loading-foreground: 34, 89%, 61%;
+		--loading-foreground: 34, 89%, 61%; /* #f7b55a */
 	}
 }
 

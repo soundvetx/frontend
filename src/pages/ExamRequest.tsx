@@ -49,7 +49,7 @@ export function ExamRequestPage() {
 	})
 
 	const disableVeterinarianNameInput = user ? user.type === UserType.Veterinarian : false
-	const canSendToWhatsapp = user ? user.canSendWhatsapp : false
+	const canSendToMessage = user ? user.canSendMessage : false
 
 	const form = useForm<ExamRequest>({
 		resolver: zodResolver(ExamRequestSchema),
@@ -654,7 +654,7 @@ export function ExamRequestPage() {
 				onConfirm={handleDownload}
 				onSecondaryButton={handleSendToSoundvetX}
 				hideCancelButton={!canCloseAlert}
-				hideSecondaryButton={examRequestSent || !canSendToWhatsapp}
+				hideSecondaryButton={examRequestSent || !canSendToMessage}
 				isOpen={isAlertOpen}
 			/>
 		</>

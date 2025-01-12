@@ -1,13 +1,13 @@
 import { RequestResponseClient } from "@/types/request"
 import { sendRequest } from "@/utils/request"
 
-interface CanSendWhatsappUserProps {
+interface CanSendMessageUserProps {
     userId: string
 }
 
-export async function canSendWhatsappUser({ userId }: CanSendWhatsappUserProps) {
+export async function canSendMessageUser({ userId }: CanSendMessageUserProps) {
     const { message }: RequestResponseClient<null> = await sendRequest({
-        endpoint: `/users/${userId}/can-send-whatsapp`,
+        endpoint: `/users/${userId}/can-send-message`,
         method: "PATCH"
     })
 
