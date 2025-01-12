@@ -29,6 +29,7 @@ export function UsersPage() {
     const [users, setUsers] = useState<User[]>([])
     const [search, setSearch] = useState<string>('')
     const [debouncedSearch, setDebouncedSearch] = useState<string>('')
+    const [page, setPage] = useState<number>(1)
 
     function handleCreateUser(user: User) {
         users.push(user)
@@ -145,7 +146,11 @@ export function UsersPage() {
         setIsLoading(true)
 
         try {
-            const { data } = await getUsers(name)
+            const { data } = await getUsers({
+                page,
+                limit: 25,
+                name
+            })
 
             setUsers(data.users)
         } catch (error: any) {
