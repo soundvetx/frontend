@@ -50,7 +50,7 @@ const ProfileDropdownMenu = React.forwardRef<HTMLDivElement, ProfileDropdownMenu
 
 				<DropdownMenuSeparator />
 
-				<DropdownMenuGroup>	
+				<DropdownMenuGroup className="flex flex-col gap-1">
 					<CustomDropdownMenuItem
 						route="/users"
 						selected={window.location.pathname === "/users"}
@@ -76,7 +76,7 @@ const ProfileDropdownMenu = React.forwardRef<HTMLDivElement, ProfileDropdownMenu
 
 				<DropdownMenuSeparator />
 
-				<DropdownMenuGroup>
+				<DropdownMenuGroup className="flex flex-col gap-1">
 					<CustomDropdownMenuItem
 						route="/profile"
 						selected={window.location.pathname === "/profile"}

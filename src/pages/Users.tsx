@@ -17,19 +17,23 @@ import { FormState } from "@/types/form";
 import { ToggleDeleteRestoreButton } from "@/components/toggle-delete-restore-button";
 import { Main } from "@/components/main";
 import { PasswordResetDialog } from "@/components/password-form-dialog";
-import { KeyRound } from "lucide-react";
+import { ArrowDownAZ, ArrowUpAZ, KeyRound } from "lucide-react";
 import { useAuth } from "@/contexts/auth-context";
 import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { SortOrder } from "@/types/sort-order";
 
 export function UsersPage() {
+    const usersLimit = 25
     const navigate = useNavigate()
     const { user: authUser } = useAuth()
     const { setIsLoading } = useLoading()
     const [users, setUsers] = useState<User[]>([])
     const [search, setSearch] = useState<string>('')
     const [debouncedSearch, setDebouncedSearch] = useState<string>('')
-    const [page, setPage] = useState<number>(1)
+    const [page, setPage] = useState<number>(0)
+    const [sortOrder, setSortOrder] = useState<SortOrder>('asc')
 
     function handleCreateUser(user: User) {
         users.push(user)
@@ -142,14 +146,15 @@ export function UsersPage() {
         }
     }
 
-    async function loadUsers(name?: string) {
+    async function loadUsers() {
         setIsLoading(true)
 
         try {
             const { data } = await getUsers({
                 page,
-                limit: 25,
-                name
+                limit: usersLimit,
+                sortOrder,
+                name: debouncedSearch
             })
 
             setUsers(data.users)
@@ -175,8 +180,8 @@ export function UsersPage() {
     }, [search])
 
     useEffect(() => {
-        loadUsers(debouncedSearch)
-    }, [debouncedSearch])
+        loadUsers()
+    }, [debouncedSearch, page, sortOrder])
 
     return (
         <>
@@ -195,13 +200,25 @@ export function UsersPage() {
                     />
                 </div>
 
-                <Input
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    name="search"
-                    placeholder="Pesquisar usuário"
-                    className="mb-2"
-                />
+                <div className="flex flex-row gap-2 mb-2 w-full">
+                    <Input
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        name="search"
+                        placeholder="Pesquisar usuário..."
+                    />
+
+                    <Button
+                        variant="outline"
+                        onClick={() => sortOrder === 'asc' ? setSortOrder('desc') : setSortOrder('asc')}
+                    >
+                        {sortOrder === 'asc' ? (
+                            <ArrowDownAZ />
+                        ) : (
+                            <ArrowUpAZ />
+                        )}
+                    </Button>
+                </div>                
 
                 <Table>
                     <TableHeader>
@@ -267,6 +284,28 @@ export function UsersPage() {
                         })}
                     </TableBody>
                 </Table>
+
+                {(page > 0 || users.length > usersLimit) && (
+                    <div className="flex flex-row justify-end w-full mt-4 gap-2">
+                        {page > 0 && (
+                            <Button
+                                size="sm"
+                                onClick={() => setPage(prev => prev - 1)}
+                            >
+                                Anterior
+                            </Button>
+                        )}
+
+                        {users.length > usersLimit && (
+                            <Button
+                                size="sm"
+                                onClick={() => setPage(prev => prev + 1)}
+                            >
+                                Próxima
+                            </Button>
+                        )}
+                    </div>
+                )}
             </Main>
         </>
     )
