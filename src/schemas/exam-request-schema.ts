@@ -56,3 +56,18 @@ export const ExamRequestSchema = z.object({
 })
 
 export type ExamRequest = z.infer<typeof ExamRequestSchema>
+
+export const ExamRequestRequiredFields = [
+	'veterinarianClinic',
+	'veterinarianName',
+	'veterinarianCrmv',
+	'veterinarianUf',
+	'patientName',
+	'patientSpecies',
+	'patientSex',
+	'patientAge',
+	'patientBreed',
+	'patientTutor',
+	'chip',
+	'paymentMethod'
+]

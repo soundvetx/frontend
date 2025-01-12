@@ -18,7 +18,7 @@ import { CheckboxItem } from "@/components/checkbox-item"
 import { Textarea } from "@/components/ui/textarea"
 import { useLoading } from "@/contexts/loading-context"
 import { generateExamRequest } from "@/http/report/generate-exam-request"
-import { ExamRequest, ExamRequestSchema } from "@/schemas/exam-request-schema"
+import { ExamRequest, ExamRequestRequiredFields, ExamRequestSchema } from "@/schemas/exam-request-schema"
 import { softTissues, skullItems, axialSkeletonItems, federativeUnits, paymentMethods, sexOptions, species, appendicularSkeletonThoracicLimb, appendicularSkeletonThoracicLimbOptions, appendicularSkeletonPelvicLimb, appendicularSkeletonPelvicLimbOptions, appendicularSkeletonPelvis } from "@/utils/options"
 import { toast } from "sonner"
 import { useAuth } from "@/contexts/auth-context"
@@ -202,7 +202,7 @@ export function ExamRequestPage() {
 								name="veterinarianClinic"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Clínica Veterinária</FormLabel>
+										<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Clínica Veterinária</FormLabel>
 										<FormControl>
 											<Input {...field} />
 										</FormControl>
@@ -217,7 +217,7 @@ export function ExamRequestPage() {
 									name="veterinarianName"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Médica(o) Veterinária(o)</FormLabel>
+											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Médica(o) Veterinária(o)</FormLabel>
 											<FormDescription>
 												Nome completo do(a) Médico(a) Veterinário(a)
 											</FormDescription>
@@ -238,7 +238,7 @@ export function ExamRequestPage() {
 									name="veterinarianCrmv"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>CRMV do(a) Veterinário(a)</FormLabel>
+											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>CRMV do(a) Veterinário(a)</FormLabel>
 											<FormDescription>
 												Inscrição no Conselho Regional de Medicina Veterinária
 											</FormDescription>
@@ -259,7 +259,7 @@ export function ExamRequestPage() {
 									name="veterinarianUf"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>UF</FormLabel>
+											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>UF</FormLabel>
 											<FormDescription>
 												Unidade Federativa referente ao CRMV
 											</FormDescription>
@@ -292,7 +292,7 @@ export function ExamRequestPage() {
 									name="patientName"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Nome</FormLabel>
+											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Nome</FormLabel>
 											<FormControl>
 												<Input {...field} />
 											</FormControl>
@@ -306,7 +306,7 @@ export function ExamRequestPage() {
 									name="patientAge"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Idade</FormLabel>
+											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Idade</FormLabel>
 											<FormControl>
 												<Input type="number" {...field} />
 											</FormControl>
@@ -320,7 +320,7 @@ export function ExamRequestPage() {
 									name="patientBreed"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Raça</FormLabel>
+											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Raça</FormLabel>
 											<FormControl>
 												<Input {...field} />
 											</FormControl>
@@ -334,7 +334,7 @@ export function ExamRequestPage() {
 									name="patientTutor"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Tutor(a)</FormLabel>
+											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Tutor(a)</FormLabel>
 											<FormControl>
 												<Input {...field} />
 											</FormControl>
@@ -343,12 +343,12 @@ export function ExamRequestPage() {
 									)}
 								/>
 
-<FormField
+								<FormField
 									control={form.control}
 									name="patientSpecies"
-									render={() => (
+									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Espécie</FormLabel>
+											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Espécie</FormLabel>
 											<div className="grid grid-cols-1 gap-2 items-top">
 												{species.map(item => (
 													<CheckboxItem
@@ -368,9 +368,9 @@ export function ExamRequestPage() {
 								<FormField
 									control={form.control}
 									name="patientSex"
-									render={() => (
+									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Sexo</FormLabel>
+											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Sexo</FormLabel>
 											<div className="grid grid-cols-1 gap-2 items-top">
 												{sexOptions.map(item => (
 													<CheckboxItem
@@ -395,7 +395,7 @@ export function ExamRequestPage() {
 								name="chip"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>CHIP</FormLabel>
+										<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>CHIP</FormLabel>
 										<FormControl>
 											<Input {...field} />
 										</FormControl>
@@ -407,9 +407,9 @@ export function ExamRequestPage() {
 							<FormField
 								control={form.control}
 								name="paymentMethod"
-								render={() => (
+								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Pagamento</FormLabel>
+										<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Pagamento</FormLabel>
 										<div className="grid grid-cols-1 gap-2 items-top">
 											{paymentMethods.map(item => (
 												<CheckboxItem
@@ -432,9 +432,9 @@ export function ExamRequestPage() {
 								<FormField
 									control={form.control}
 									name="softTissues"
-									render={() => (
+									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Tecidos moles</FormLabel>
+											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Tecidos moles</FormLabel>
 											<div className="grid grid-cols-1 gap-2 items-top">
 												{softTissues.map(item => (
 													<CheckboxItem
@@ -453,9 +453,9 @@ export function ExamRequestPage() {
 								<FormField
 									control={form.control}
 									name="skullItems"
-									render={() => (
+									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Crânio</FormLabel>
+											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Crânio</FormLabel>
 											<div className="grid grid-cols-2 gap-2 items-top">
 												{skullItems.map(item => (
 													<CheckboxItem
@@ -481,9 +481,9 @@ export function ExamRequestPage() {
 									<FormField
 										control={form.control}
 										name="appendicularSkeletonThoracicLimb"
-										render={() => (
+										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Membro Torácico</FormLabel>
+												<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Membro Torácico</FormLabel>
 												<div className="grid grid-cols-1 gap-2 items-top">
 													{appendicularSkeletonThoracicLimb.map(item => (
 														<CheckboxItem
@@ -504,9 +504,9 @@ export function ExamRequestPage() {
 										<FormField
 											control={form.control}
 											name="appendicularSkeletonThoracicLimbOptions"
-											render={() => (
+											render={({ field }) => (
 												<FormItem>
-													<FormLabel>Assinalar opção:</FormLabel>
+													<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Assinalar opção:</FormLabel>
 													<div className="grid grid-cols-2 gap-2 items-top">
 														{appendicularSkeletonThoracicLimbOptions.map(item => (
 															<CheckboxItem
@@ -528,9 +528,9 @@ export function ExamRequestPage() {
 									<FormField
 										control={form.control}
 										name="appendicularSkeletonPelvicLimb"
-										render={() => (
+										render={({ field }) => (
 											<FormItem>
-												<FormLabel>Membro Pélvico</FormLabel>
+												<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Membro Pélvico</FormLabel>
 												<div className="grid grid-cols-1 gap-2 items-top">
 													{appendicularSkeletonPelvicLimb.map(item => (
 														<CheckboxItem
@@ -551,9 +551,9 @@ export function ExamRequestPage() {
 										<FormField
 											control={form.control}
 											name="appendicularSkeletonPelvicLimbOptions"
-											render={() => (
+											render={({ field }) => (
 												<FormItem>
-													<FormLabel>Assinalar opção:</FormLabel>
+													<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Assinalar opção:</FormLabel>
 													<div className="grid grid-cols-2 gap-2 items-top">
 														{appendicularSkeletonPelvicLimbOptions.map(item => (
 															<CheckboxItem
@@ -574,9 +574,9 @@ export function ExamRequestPage() {
 								<FormField
 									control={form.control}
 									name="appendicularSkeletonPelvis"
-									render={() => (
+									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Pelve</FormLabel>
+											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Pelve</FormLabel>
 											<div className="grid grid-cols-1 gap-2 items-top">
 												{appendicularSkeletonPelvis.map(item => (
 													<CheckboxItem
@@ -597,9 +597,9 @@ export function ExamRequestPage() {
 								<FormField
 									control={form.control}
 									name="axialSkeletonItems"
-									render={() => (
+									render={({ field }) => (
 										<FormItem>
-											<FormLabel>Esqueleto Axial</FormLabel>
+											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Esqueleto Axial</FormLabel>
 											<div className="grid grid-cols-2 gap-2 items-top">
 												{axialSkeletonItems.map(item => (
 													<CheckboxItem
@@ -625,7 +625,7 @@ export function ExamRequestPage() {
 								name="observations"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel>Observações</FormLabel>
+										<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Observações</FormLabel>
 										<FormControl>
 											<Textarea className="resize-none" rows={4} {...field} />
 										</FormControl>
@@ -649,12 +649,12 @@ export function ExamRequestPage() {
 				description="O arquivo de requisição de exame foi gerado com sucesso. O que deseja fazer?"
 				cancelText="Fechar"
 				confirmText="Fazer Download"
-				secondaryButtonText={canSendToWhatsapp ? "Enviar para SoundvetX" : undefined}
+				secondaryButtonText={"Enviar para SoundvetX"}
 				onCancel={handleCloseAlert}
 				onConfirm={handleDownload}
 				onSecondaryButton={handleSendToSoundvetX}
 				hideCancelButton={!canCloseAlert}
-				hideSecondaryButton={examRequestSent}
+				hideSecondaryButton={examRequestSent || !canSendToWhatsapp}
 				isOpen={isAlertOpen}
 			/>
 		</>
