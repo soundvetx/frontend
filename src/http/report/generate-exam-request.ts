@@ -8,7 +8,7 @@ interface ExamRequestResponseData {
 
 export async function generateExamRequest({ ...props }: ExamRequest) {
     const { message, data }: RequestResponseClient<ExamRequestResponseData> = await sendRequest({
-        endpoint: "exam-requests/generate",
+        endpoint: "/exam-requests/generate",
         method: "POST",
         data: { ...props }
     })
