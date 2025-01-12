@@ -6,9 +6,15 @@ interface GetUsersResponseData {
     users: User[]
 }
 
-export async function getUsers() {
+export async function getUsers(name?: string) {
+    let endpoint = '/users'
+
+    if (name) {
+        endpoint = endpoint.concat(`?name=${name}`)
+    }
+
     const { message, data }: RequestResponseClient<GetUsersResponseData> = await sendRequest({
-        endpoint: "/users",
+        endpoint: endpoint,
         method: "GET"
     })
 

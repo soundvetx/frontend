@@ -20,12 +20,15 @@ import { PasswordResetDialog } from "@/components/password-form-dialog";
 import { KeyRound } from "lucide-react";
 import { useAuth } from "@/contexts/auth-context";
 import { useNavigate } from "react-router-dom";
+import { Input } from "@/components/ui/input";
 
 export function UsersPage() {
     const navigate = useNavigate()
     const { user: authUser } = useAuth()
     const { setIsLoading } = useLoading()
     const [users, setUsers] = useState<User[]>([])
+    const [search, setSearch] = useState<string>('')
+    const [debouncedSearch, setDebouncedSearch] = useState<string>('')
 
     function handleCreateUser(user: User) {
         users.push(user)
@@ -138,11 +141,11 @@ export function UsersPage() {
         }
     }
 
-    async function loadUsers() {
+    async function loadUsers(name?: string) {
         setIsLoading(true)
 
         try {
-            const { data } = await getUsers()
+            const { data } = await getUsers(name)
 
             setUsers(data.users)
         } catch (error: any) {
@@ -161,6 +164,15 @@ export function UsersPage() {
         loadUsers()
     }, [])
 
+    useEffect(() => {
+        const handler = setTimeout(() => setDebouncedSearch(search), 500)
+        return () => clearTimeout(handler)
+    }, [search])
+
+    useEffect(() => {
+        loadUsers(debouncedSearch)
+    }, [debouncedSearch])
+
     return (
         <>
             <Header />
@@ -177,6 +189,14 @@ export function UsersPage() {
                         onClose={handleCreateUser}
                     />
                 </div>
+
+                <Input
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    name="search"
+                    placeholder="Pesquisar usuário"
+                    className="mb-2"
+                />
 
                 <Table>
                     <TableHeader>
