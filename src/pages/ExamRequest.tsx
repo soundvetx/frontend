@@ -40,7 +40,7 @@ export function ExamRequestPage() {
 
 	const [isAlertOpen, setIsAlertOpen] = useState(false)
 	const [canCloseAlert, setCanCloseAlert] = useState(false)
-	const [examRequestSent, setExamRequestSent] = useState(false)
+	//const [examRequestSent, setExamRequestSent] = useState(false)
 	const [sendExamRequestProps, setSendExamRequestProps] = useState<SendExamRequest>({
 		veterinarianClinic: "",
 		veterinarianName: "",
@@ -49,7 +49,7 @@ export function ExamRequestPage() {
 	})
 
 	const disableVeterinarianNameInput = user ? user.type === UserType.Veterinarian : false
-	const canSendToMessage = user ? user.canSendMessage : false
+	//const canSendToMessage = user ? user.canSendMessage : false
 
 	const form = useForm<ExamRequest>({
 		resolver: zodResolver(ExamRequestSchema),
@@ -128,7 +128,7 @@ export function ExamRequestPage() {
 	function handleCloseAlert() {
 		setIsAlertOpen(false)
 		setCanCloseAlert(false)
-		setExamRequestSent(false)
+		//setExamRequestSent(false)
 		form.reset({
 			veterinarianClinic: "",
 			veterinarianName: user && user.type === UserType.Veterinarian ? user.name : "",
@@ -167,7 +167,7 @@ export function ExamRequestPage() {
 			const { message } = await sendExamRequest(sendExamRequestProps)
 	
 			toast.success(message.clientMessage)
-			setExamRequestSent(true)
+			//setExamRequestSent(true)
 			setCanCloseAlert(true)
 		} catch (error: any) {
 			const { status, message } = error as RequestErrorClient
