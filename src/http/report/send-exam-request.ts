@@ -5,18 +5,18 @@ export interface SendExamRequest {
 	veterinarianClinic: string
 	veterinarianName: string
 	patientName: string
-	reportUrl: string
+	examRequestUrl: string
 }
 
-export async function sendExamRequest({ veterinarianClinic, veterinarianName, patientName, reportUrl }: SendExamRequest) {
+export async function sendExamRequest({ veterinarianClinic, veterinarianName, patientName, examRequestUrl }: SendExamRequest) {
     const { message }: RequestResponseClient<boolean> = await sendRequest({
-        endpoint: "exam-requests/send",
+        endpoint: "/exam-requests/send",
         method: "POST",
         data: {
             veterinarianClinic,
             veterinarianName,
             patientName,
-            reportUrl
+            examRequestUrl
         }
     })
 

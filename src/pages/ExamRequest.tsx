@@ -45,7 +45,7 @@ export function ExamRequestPage() {
 		veterinarianClinic: "",
 		veterinarianName: "",
 		patientName: "",
-		reportUrl: ""
+		examRequestUrl: ""
 	})
 
 	const disableVeterinarianNameInput = user ? user.type === UserType.Veterinarian : false
@@ -108,7 +108,7 @@ export function ExamRequestPage() {
 				veterinarianClinic: values.veterinarianClinic,
 				veterinarianName: values.veterinarianName,
 				patientName: values.patientName,
-				reportUrl: data.url
+				examRequestUrl: data.url
 			})
 			setIsAlertOpen(true)
 	
@@ -155,7 +155,7 @@ export function ExamRequestPage() {
 	}
 
 	function handleDownload() {
-		window.open(sendExamRequestProps.reportUrl, "_blank")
+		window.open(sendExamRequestProps.examRequestUrl, "_blank")
 		setCanCloseAlert(true)
 	}
 
@@ -654,7 +654,7 @@ export function ExamRequestPage() {
 				onConfirm={handleDownload}
 				onSecondaryButton={handleSendToSoundvetX}
 				hideCancelButton={!canCloseAlert}
-				hideSecondaryButton={examRequestSent || !canSendToMessage}
+				hideSecondaryButton={true} // examRequestSent || !canSendToMessage
 				isOpen={isAlertOpen}
 			/>
 		</>
