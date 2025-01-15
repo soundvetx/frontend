@@ -19,7 +19,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { useLoading } from "@/contexts/loading-context"
 import { generateExamRequest } from "@/http/report/generate-exam-request"
 import { ExamRequest, ExamRequestRequiredFields, ExamRequestSchema } from "@/schemas/exam-request-schema"
-import { softTissues, skullItems, axialSkeletonItems, federativeUnits, paymentMethods, sexOptions, species, appendicularSkeletonThoracicLimb, appendicularSkeletonThoracicLimbOptions, appendicularSkeletonPelvicLimb, appendicularSkeletonPelvicLimbOptions, appendicularSkeletonPelvis } from "@/utils/options"
+import { skullItems, axialSkeletonItems, federativeUnits, paymentMethods, sexOptions, species, appendicularSkeletonThoracicLimb, appendicularSkeletonThoracicLimbOptions, appendicularSkeletonPelvicLimb, appendicularSkeletonPelvicLimbOptions, appendicularSkeletonPelvis, softTissuesWithContrast, softTissuesWithoutContrast } from "@/utils/options"
 import { toast } from "sonner"
 import { useAuth } from "@/contexts/auth-context"
 import { Header } from "@/components/header"
@@ -66,7 +66,8 @@ export function ExamRequestPage() {
 			patientTutor: "",
 			chip: "",
 			paymentMethod: "",
-			softTissues: [],
+			softTissuesWithContrast: [],
+			softTissuesWithoutContrast: [],
 			skullItems: [],
 			axialSkeletonItems: [],
 			appendicularSkeletonThoracicLimb: "",
@@ -97,6 +98,12 @@ export function ExamRequestPage() {
 			form.setValue("appendicularSkeletonPelvicLimbOptions", [])
 		}
 	}, [form.watch("appendicularSkeletonPelvicLimb")])
+
+	useEffect(() => {
+		if (form.watch("paymentMethod") !== "Pet Love") {
+			form.setValue("chip", "")
+		}
+	}, [form.watch("paymentMethod")])
 
 	async function onSubmit(values: ExamRequest) {
 		setIsLoading(true)
@@ -142,7 +149,8 @@ export function ExamRequestPage() {
 			patientTutor: "",
 			chip: "",
 			paymentMethod: "",
-			softTissues: [],
+			softTissuesWithContrast: [],
+			softTissuesWithoutContrast: [],
 			skullItems: [],
 			axialSkeletonItems: [],
 			appendicularSkeletonThoracicLimb: "",
@@ -392,20 +400,6 @@ export function ExamRequestPage() {
 						<FormSection title="Dados do Exame">
 							<FormField
 								control={form.control}
-								name="chip"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>CHIP</FormLabel>
-										<FormControl>
-											<Input {...field} />
-										</FormControl>
-										<FormMessage />
-									</FormItem>
-								)}
-							/>
-
-							<FormField
-								control={form.control}
 								name="paymentMethod"
 								render={({ field }) => (
 									<FormItem>
@@ -425,21 +419,44 @@ export function ExamRequestPage() {
 									</FormItem>
 								)}
 							/>
-						</FormSection>
 
-						<FormSection title="Solicitação">
-							<FormGrid cols={2}>
+							{form.watch("paymentMethod") === "Pet Love" && (
 								<FormField
 									control={form.control}
-									name="softTissues"
+									name="chip"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Tecidos moles</FormLabel>
+											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>CHIP</FormLabel>
+											<FormControl>
+												<Input {...field} />
+											</FormControl>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+							)}
+						</FormSection>
+
+						<FormSection
+							title="Solicitação"
+							description={
+								<>
+									<sup>*</sup>Exames com necessidade de sedação para melhor posicionamento.
+								</>
+							}
+						>
+							<FormGrid title="Tecidos Moles" cols={2}>
+								<FormField
+									control={form.control}
+									name="softTissuesWithContrast"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Sem contraste</FormLabel>
 											<div className="grid grid-cols-1 gap-2 items-top">
-												{softTissues.map(item => (
+												{softTissuesWithContrast.map(item => (
 													<CheckboxItem
 														key={item.id}
-														name="softTissues"
+														name="softTissuesWithContrast"
 														formControl={form.control}
 														option={item}
 													/>
@@ -452,24 +469,20 @@ export function ExamRequestPage() {
 
 								<FormField
 									control={form.control}
-									name="skullItems"
+									name="softTissuesWithoutContrast"
 									render={({ field }) => (
 										<FormItem>
-											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Crânio</FormLabel>
-											<div className="grid grid-cols-2 gap-2 items-top">
-												{skullItems.map(item => (
+											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Com contraste</FormLabel>
+											<div className="grid grid-cols-1 gap-2 items-top">
+												{softTissuesWithoutContrast.map(item => (
 													<CheckboxItem
 														key={item.id}
-														name="skullItems"
+														name="softTissuesWithoutContrast"
 														formControl={form.control}
 														option={item}
 													/>
 												))}
 											</div>
-											<FormDescription>
-												<sup>*</sup>Exames com necessidade de sedação para melhor
-												posicionamento.
-											</FormDescription>
 											<FormMessage />
 										</FormItem>
 									)}
@@ -593,7 +606,7 @@ export function ExamRequestPage() {
 								/>
 							</FormGrid>
 
-							<FormGrid cols={2}>
+							<FormGrid title="Outros" cols={2}>
 								<FormField
 									control={form.control}
 									name="axialSkeletonItems"
@@ -610,10 +623,27 @@ export function ExamRequestPage() {
 													/>
 												))}
 											</div>
-											<FormDescription>
-												<sup>*</sup>Exames com necessidade de sedação para melhor
-												posicionamento.
-											</FormDescription>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+
+								<FormField
+									control={form.control}
+									name="skullItems"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Crânio</FormLabel>
+											<div className="grid grid-cols-2 gap-2 items-top">
+												{skullItems.map(item => (
+													<CheckboxItem
+														key={item.id}
+														name="skullItems"
+														formControl={form.control}
+														option={item}
+													/>
+												))}
+											</div>
 											<FormMessage />
 										</FormItem>
 									)}
@@ -625,7 +655,7 @@ export function ExamRequestPage() {
 								name="observations"
 								render={({ field }) => (
 									<FormItem>
-										<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Observações</FormLabel>
+										<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Suspeita clínica e demais observações</FormLabel>
 										<FormControl>
 											<Textarea className="resize-none" rows={4} {...field} />
 										</FormControl>
@@ -649,7 +679,7 @@ export function ExamRequestPage() {
 				description="O arquivo de requisição de exame foi gerado com sucesso. O que deseja fazer?"
 				cancelText="Fechar"
 				confirmText="Fazer Download"
-				secondaryButtonText={"Enviar para SoundvetX"}
+				secondaryButtonText="Enviar para SoundvetX"
 				onCancel={handleCloseAlert}
 				onConfirm={handleDownload}
 				onSecondaryButton={handleSendToSoundvetX}

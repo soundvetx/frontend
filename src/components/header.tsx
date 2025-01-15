@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { cn } from "@/lib/utils"
 import { ProfileDropdownMenu } from "@/components/profile-dropdown-menu"
 
-import SoundvetxLogo from "@/assets/images/logo_single_primary.png"
+import SoundvetxLogo from "@/assets/images/logo_primary.png"
 
 interface HeaderProps extends React.HTMLAttributes<HTMLHeadingElement> {
     canNavigate?: boolean
@@ -22,7 +22,7 @@ const Header = React.forwardRef<HTMLHeadingElement, HeaderProps>(
                 className={cn("flex flex-row items-center justify-between w-full max-w-screen-xl mx-auto py-4 px-4", className)}
                 {...props}
             >
-                <img src={SoundvetxLogo} alt="SoundvetX" className="h-[30px]" />
+                <img src={SoundvetxLogo} alt="SoundvetX" className="h-[50px]" />
 
                 {user ? (
                     <div className="flex flex-row gap-1 items-center">

@@ -3,7 +3,7 @@ import React from "react"
 import { cn } from "@/lib/utils"
 import { cva, VariantProps } from "class-variance-authority"
 
-import SoundvetxLogo from "@/assets/images/logo_primary.png"
+import SoundvetxLogo from "@/assets/images/logo_full_primary.png"
 
 const mainTitleVariants = cva("font-bold tracking-tight text-center", {
 	variants: {

@@ -18,25 +18,32 @@ export const paymentMethods: CheckboxOption[] = [
 	{ id: "private", label: "Particular" }
 ]
 
-export const softTissues: CheckboxOption[] = [
+export const softTissuesWithContrast: CheckboxOption[] = [
 	{ id: "chest", label: "Tórax" },
 	{ id: "abdomen", label: "Abdômen" },
 	{ id: "skyline", label: "Skyline" },
 ]
 
+export const softTissuesWithoutContrast: CheckboxOption[] = [
+	{ id: "esophagogram", label: "Esofagograma" },
+	{ id: "gastricCavity", label: "Cavidade Gástrica" },
+	{ id: "retrogradeUrethrocystography", label: "Uretrocistografia Retrógrada" },
+	{ id: "excretoryUrography", label: "Urografia Excretora" },
+]
+
 export const skullItems: CheckboxOption[] = [
 	{ id: "mandible", label: "Mandíbula", hasObservation: true },
-	{ id: "toothRoots", label: "Raízes dentárias", hasObservation: true },
+	{ id: "toothRoots", label: "Raízes Dentárias", hasObservation: true },
 	{ id: "tympanicBullae", label: "Bulas Timpânicas", hasObservation: true },
-	{ id: "skullcap", label: "Calota craniana", hasObservation: true }
+	{ id: "skullcap", label: "Calota Craniana", hasObservation: true }
 ]
 
 export const axialSkeletonItems: CheckboxOption[] = [
 	{ id: "cervical", label: "Coluna Cervical", hasObservation: true },
 	{ id: "thoracic", label: "Coluna Torácica" },
 	{ id: "lumbar", label: "Coluna Lombar" },
-	{ id: "cervicothoracic", label: "Cervico Torácica" },
-	{ id: "thoracolumbar", label: "Tóraco-lombar" },
+	{ id: "cervicothoracic", label: "Cervicotorácica" },
+	{ id: "thoracolumbar", label: "Toracolombar" },
 	{ id: "lumbosacral", label: "Lombossacral" },
 	{ id: "tail", label: "Cauda" }
 ]
@@ -48,11 +55,11 @@ export const appendicularSkeletonThoracicLimb: CheckboxOption[] = [
 
 export const appendicularSkeletonThoracicLimbOptions: CheckboxOption[] = [
 	{ id: "completeStudy", label: "Estudo Completo" },
-	{ id: "shoulder", label: "Ombro" },
-	{ id: "umerus", label: "Úmero" },
-	{ id: "elbow", label: "Cotovelo" },
-	{ id: "radio", label: "Rádio/Ulna" },
-	{ id: "carpus", label: "Carpo/Dígitos" },
+	{ id: "carpusDigits", label: "Art. Carpos/Dígitos" },
+	{ id: "scapulohumeralJoint", label: "Art. Escapuloumeral" },
+	{ id: "humerus", label: "Úmero" },
+	{ id: "humeroradioulnarJoint", label: "Art. Umeroradioulnar" },
+	{ id: "radiusAndUlna", label: "Rádio e Ulna" }
 ]
 
 export const appendicularSkeletonPelvicLimb: CheckboxOption[] = [
@@ -61,15 +68,17 @@ export const appendicularSkeletonPelvicLimb: CheckboxOption[] = [
 ]
 
 export const appendicularSkeletonPelvicLimbOptions: CheckboxOption[] = [
+	{ id: "completeStudy", label: "Estudo Completo" },
+	{ id: "femorotibiopatelarJoint", label: "Art. Femorotibiopatelar" },
 	{ id: "femur", label: "Fêmur" },
-	{ id: "knee", label: "Joelho" },
-	{ id: "tibia", label: "Tíbia/Fíbula" },
-	{ id: "tarsus", label: "Art. Tarsica/Dígitos" }
+	{ id: "tibiotarsalJointDigits", label: "Art. Tibiotarsica/Dígitos" },
+	{ id: "tibiaAndFibula", label: "Tíbia e Fíbula" },
+	{ id: "tploPlanning", label: "Planejamento TPLO", hasObservation: true }
 ]
 
 export const appendicularSkeletonPelvis: CheckboxOption[] = [
 	{ id: "VDLL", label: "VD + LL" },
-	{ id: "pelvisAndKnee", label: "Pelve + Joelho (TPLO)" }
+	{ id: "pelvisAndKnee", label: "Pelve + Joelho (TPLO)", hasObservation: true }
 ]
 
 export const federativeUnits: ComboboxItem[] = [

@@ -61,7 +61,7 @@ const CheckboxItem = React.forwardRef<HTMLDivElement, CheckboxItemProps>(
 									}}
 								/>
 							</FormControl>
-							<FormLabel className="leading-1 font-normal">{option.label}{option.hasObservation && (<sup>*</sup>)}</FormLabel>
+							<FormLabel className="leading-1 font-normal">{option.label}{option.hasObservation && (<sup className="text-primary">*</sup>)}</FormLabel>
 						</FormItem>
 					)
 				}}
