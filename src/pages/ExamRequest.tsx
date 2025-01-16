@@ -19,7 +19,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { useLoading } from "@/contexts/loading-context"
 import { generateExamRequest } from "@/http/report/generate-exam-request"
 import { ExamRequest, ExamRequestRequiredFields, ExamRequestSchema } from "@/schemas/exam-request-schema"
-import { skullItems, axialSkeletonItems, federativeUnits, paymentMethods, sexOptions, species, appendicularSkeletonThoracicLimb, appendicularSkeletonThoracicLimbOptions, appendicularSkeletonPelvicLimb, appendicularSkeletonPelvicLimbOptions, appendicularSkeletonPelvis, softTissuesWithContrast, softTissuesWithoutContrast } from "@/utils/options"
+import { skullItems, axialSkeletonItems, federativeUnits, paymentMethods, sexOptions, species, appendicularSkeletonThoracicLimb, appendicularSkeletonThoracicLimbOptions, appendicularSkeletonPelvicLimb, appendicularSkeletonPelvicLimbOptions, appendicularSkeletonPelvis, softTissuesWithContrast, softTissuesWithoutContrast, agePeriods } from "@/utils/options"
 import { toast } from "sonner"
 import { useAuth } from "@/contexts/auth-context"
 import { Header } from "@/components/header"
@@ -62,12 +62,13 @@ export function ExamRequestPage() {
 			patientSpecies: "",
 			patientSex: "",
 			patientAge: 0,
+			patientAgePeriod: "",
 			patientBreed: "",
 			patientTutor: "",
 			chip: "",
 			paymentMethod: "",
-			softTissuesWithContrast: [],
 			softTissuesWithoutContrast: [],
+			softTissuesWithContrast: [],
 			skullItems: [],
 			axialSkeletonItems: [],
 			appendicularSkeletonThoracicLimb: "",
@@ -145,12 +146,13 @@ export function ExamRequestPage() {
 			patientSpecies: "",
 			patientSex: "",
 			patientAge: 0,
+			patientAgePeriod: "",
 			patientBreed: "",
 			patientTutor: "",
 			chip: "",
 			paymentMethod: "",
-			softTissuesWithContrast: [],
 			softTissuesWithoutContrast: [],
+			softTissuesWithContrast: [],
 			skullItems: [],
 			axialSkeletonItems: [],
 			appendicularSkeletonThoracicLimb: "",
@@ -325,6 +327,28 @@ export function ExamRequestPage() {
 
 								<FormField
 									control={form.control}
+									name="patientAgePeriod"
+									render={({ field }) => (
+										<FormItem>
+											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Período da Idade</FormLabel>
+											<div className="grid grid-cols-1 gap-2 items-top">
+												{agePeriods.map(item => (
+													<CheckboxItem
+														key={item.id}
+														name="patientAgePeriod"
+														formControl={form.control}
+														option={item}
+														singleOption
+													/>
+												))}
+											</div>
+											<FormMessage />
+										</FormItem>
+									)}
+								/>
+
+								<FormField
+									control={form.control}
 									name="patientBreed"
 									render={({ field }) => (
 										<FormItem>
@@ -448,15 +472,15 @@ export function ExamRequestPage() {
 							<FormGrid title="Tecidos Moles" cols={2}>
 								<FormField
 									control={form.control}
-									name="softTissuesWithContrast"
+									name="softTissuesWithoutContrast"
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Sem contraste</FormLabel>
 											<div className="grid grid-cols-1 gap-2 items-top">
-												{softTissuesWithContrast.map(item => (
+												{softTissuesWithoutContrast.map(item => (
 													<CheckboxItem
 														key={item.id}
-														name="softTissuesWithContrast"
+														name="softTissuesWithoutContrast"
 														formControl={form.control}
 														option={item}
 													/>
@@ -469,15 +493,15 @@ export function ExamRequestPage() {
 
 								<FormField
 									control={form.control}
-									name="softTissuesWithoutContrast"
+									name="softTissuesWithContrast"
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Com contraste</FormLabel>
 											<div className="grid grid-cols-1 gap-2 items-top">
-												{softTissuesWithoutContrast.map(item => (
+												{softTissuesWithContrast.map(item => (
 													<CheckboxItem
 														key={item.id}
-														name="softTissuesWithoutContrast"
+														name="softTissuesWithContrast"
 														formControl={form.control}
 														option={item}
 													/>

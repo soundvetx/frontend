@@ -2,6 +2,11 @@ import { CheckboxOption } from "@/components/checkbox-item"
 import { ComboboxItem } from "@/components/combobox"
 import { UserType, UserTypeOption } from "@/types/user"
 
+export const agePeriods: CheckboxOption[] = [
+	{ id: "years", label: "Anos" },
+	{ id: "months", label: "Meses" }
+]
+
 export const species: CheckboxOption[] = [
 	{ id: "canine", label: "Canino" },
 	{ id: "feline", label: "Felino" },
@@ -18,13 +23,13 @@ export const paymentMethods: CheckboxOption[] = [
 	{ id: "private", label: "Particular" }
 ]
 
-export const softTissuesWithContrast: CheckboxOption[] = [
+export const softTissuesWithoutContrast: CheckboxOption[] = [
 	{ id: "chest", label: "Tórax" },
 	{ id: "abdomen", label: "Abdômen" },
 	{ id: "skyline", label: "Skyline" },
 ]
 
-export const softTissuesWithoutContrast: CheckboxOption[] = [
+export const softTissuesWithContrast: CheckboxOption[] = [
 	{ id: "esophagogram", label: "Esofagograma" },
 	{ id: "gastricCavity", label: "Cavidade Gástrica" },
 	{ id: "retrogradeUrethrocystography", label: "Uretrocistografia Retrógrada" },

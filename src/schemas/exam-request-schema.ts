@@ -31,7 +31,10 @@ export const ExamRequestSchema = z.object({
 				.regex(/\d+/)
 				.transform(Number)
 		)
-		.refine(n => n >= 0, { message: "Idade inválida." }),
+		.refine(n => n > 0, { message: "A idade do paciente deve ser maior que zero." }),
+	patientAgePeriod: z.string().trim().min(1, {
+		message: "Este campo é obrigatório."
+	}),
 	patientBreed: z.string().trim().min(1, {
 		message: "Este campo é obrigatório."
 	}),
@@ -79,6 +82,7 @@ export const ExamRequestRequiredFields = [
 	'patientSpecies',
 	'patientSex',
 	'patientAge',
+	'patientAgePeriod',
 	'patientBreed',
 	'patientTutor',
 	'chip',
