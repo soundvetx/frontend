@@ -5,7 +5,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { cn } from "@/lib/utils"
 import { ProfileDropdownMenu } from "@/components/profile-dropdown-menu"
 
-import SoundvetxLogo from "@/assets/images/logo_primary.png"
+import SoundvetxLogo from "@/assets/images/logo-primary.png"
 
 interface HeaderProps extends React.HTMLAttributes<HTMLHeadingElement> {
     canNavigate?: boolean
