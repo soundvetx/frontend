@@ -104,6 +104,9 @@ export function ExamRequestPage() {
 		if (form.watch("paymentMethod") !== "Pet Love") {
 			form.setValue("chip", "")
 		}
+
+		form.setValue("appendicularSkeletonThoracicLimbOptions", [])
+		form.setValue("appendicularSkeletonPelvicLimbOptions", [])
 	}, [form.watch("paymentMethod")])
 
 	async function onSubmit(values: ExamRequest) {
@@ -545,7 +548,7 @@ export function ExamRequestPage() {
 												<FormItem>
 													<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Assinalar opção:</FormLabel>
 													<div className="grid grid-cols-2 gap-2 items-top">
-														{appendicularSkeletonThoracicLimbOptions.map(item => (
+														{appendicularSkeletonThoracicLimbOptions(form.watch('paymentMethod') === 'Pet Love').map(item => (
 															<CheckboxItem
 																key={item.id}
 																name="appendicularSkeletonThoracicLimbOptions"
@@ -592,7 +595,7 @@ export function ExamRequestPage() {
 												<FormItem>
 													<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Assinalar opção:</FormLabel>
 													<div className="grid grid-cols-2 gap-2 items-top">
-														{appendicularSkeletonPelvicLimbOptions.map(item => (
+														{appendicularSkeletonPelvicLimbOptions(form.watch('paymentMethod') === 'Pet Love').map(item => (
 															<CheckboxItem
 																key={item.id}
 																name="appendicularSkeletonPelvicLimbOptions"

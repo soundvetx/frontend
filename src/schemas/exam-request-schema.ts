@@ -69,7 +69,31 @@ export const ExamRequestSchema = z.object({
 		message: "Este campo é obrigatório quando o método de pagamento é Pet Love.",
 		path: ["chip"],
 	}
-);
+)
+.refine(
+	(data) => {
+		return (
+			data.appendicularSkeletonThoracicLimb === '' ||
+			(data.appendicularSkeletonThoracicLimbOptions && data.appendicularSkeletonThoracicLimbOptions.length > 0)
+		);
+	},
+	{
+		message: "Selecione pelo menos uma opção.",
+		path: ["appendicularSkeletonThoracicLimbOptions"],
+	}
+)
+.refine(
+	(data) => {
+		return (
+			data.appendicularSkeletonPelvicLimb === '' ||
+			(data.appendicularSkeletonPelvicLimbOptions && data.appendicularSkeletonPelvicLimbOptions.length > 0)
+		);
+	},
+	{
+		message: "Selecione pelo menos uma opção.",
+		path: ["appendicularSkeletonPelvicLimbOptions"],
+	}
+)
 
 export type ExamRequest = z.infer<typeof ExamRequestSchema>
 

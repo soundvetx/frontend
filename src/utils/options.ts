@@ -58,28 +58,51 @@ export const appendicularSkeletonThoracicLimb: CheckboxOption[] = [
 	{ id: "left", label: "Esquerdo" }
 ]
 
-export const appendicularSkeletonThoracicLimbOptions: CheckboxOption[] = [
-	{ id: "completeStudy", label: "Estudo Completo" },
-	{ id: "carpusDigits", label: "Art. Carpos/Dígitos" },
-	{ id: "scapulohumeralJoint", label: "Art. Escapuloumeral" },
-	{ id: "humerus", label: "Úmero" },
-	{ id: "humeroradioulnarJoint", label: "Art. Umeroradioulnar" },
-	{ id: "radiusAndUlna", label: "Rádio e Ulna" }
-]
+export const appendicularSkeletonThoracicLimbOptions = (isPetLove: boolean): CheckboxOption[] => {
+	if (isPetLove) {
+		return [
+			{ id: "scapulohumeralJoint", label: "Art. Escapuloumeral" },
+			{ id: "humerus", label: "Úmero" },
+			{ id: "humeroradioulnarJoint", label: "Art. Umeroradioulnar" },
+			{ id: "radiusAndUlna", label: "Rádio e Ulna" },
+			{ id: "carpusDigits", label: "Art. Carpos/Falanges" }
+		]
+	}
+
+	return [
+		{ id: "completeStudy", label: "Estudo Completo" },
+		{ id: "carpusDigits", label: "Art. Carpos/Dígitos" },
+		{ id: "scapulohumeralJoint", label: "Art. Escapuloumeral" },
+		{ id: "humerus", label: "Úmero" },
+		{ id: "humeroradioulnarJoint", label: "Art. Umeroradioulnar" },
+		{ id: "radiusAndUlna", label: "Rádio e Ulna" }
+	]
+}
 
 export const appendicularSkeletonPelvicLimb: CheckboxOption[] = [
 	{ id: "right", label: "Direito" },
 	{ id: "left", label: "Esquerdo" }
 ]
 
-export const appendicularSkeletonPelvicLimbOptions: CheckboxOption[] = [
-	{ id: "completeStudy", label: "Estudo Completo" },
-	{ id: "femorotibiopatelarJoint", label: "Art. Femorotibiopatelar" },
-	{ id: "femur", label: "Fêmur" },
-	{ id: "tibiotarsalJointDigits", label: "Art. Tibiotarsica/Dígitos" },
-	{ id: "tibiaAndFibula", label: "Tíbia e Fíbula" },
-	{ id: "tploPlanning", label: "Planejamento TPLO", hasObservation: true }
-]
+export const appendicularSkeletonPelvicLimbOptions = (isPetLove: boolean): CheckboxOption[] => {
+	if (isPetLove) {
+		return [
+			{ id: "femur", label: "Fêmur" },
+			{ id: "kneeJoint", label: "Art. Joelho" },
+			{ id: "tibiaAndFibula", label: "Tíbia e Fíbula" },
+			{ id: "tarsalJointDigits", label: "Art. Társica/Dígitos" }
+		]
+	}
+
+	return [
+		{ id: "completeStudy", label: "Estudo Completo" },
+		{ id: "femorotibiopatelarJoint", label: "Art. Femorotibiopatelar" },
+		{ id: "femur", label: "Fêmur" },
+		{ id: "tibiotarsalJointDigits", label: "Art. Tibiotarsica/Dígitos" },
+		{ id: "tibiaAndFibula", label: "Tíbia e Fíbula" },
+		{ id: "tploPlanning", label: "Planejamento TPLO", hasObservation: true }
+	]
+}
 
 export const appendicularSkeletonPelvis: CheckboxOption[] = [
 	{ id: "VDLL", label: "VD + LL" },
