@@ -74,6 +74,7 @@ export const ExamRequestSchema = z.object({
 	(data) => {
 		return (
 			data.appendicularSkeletonThoracicLimb === '' ||
+			data.paymentMethod !== "Pet Love" ||
 			(data.appendicularSkeletonThoracicLimbOptions && data.appendicularSkeletonThoracicLimbOptions.length > 0)
 		);
 	},
@@ -86,6 +87,7 @@ export const ExamRequestSchema = z.object({
 	(data) => {
 		return (
 			data.appendicularSkeletonPelvicLimb === '' ||
+			data.paymentMethod !== "Pet Love" ||
 			(data.appendicularSkeletonPelvicLimbOptions && data.appendicularSkeletonPelvicLimbOptions.length > 0)
 		);
 	},

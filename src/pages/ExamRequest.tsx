@@ -540,7 +540,7 @@ export function ExamRequestPage() {
 										)}
 									/>
 
-									{form.watch("appendicularSkeletonThoracicLimb") !== "" && (
+									{(form.watch("appendicularSkeletonThoracicLimb") !== "" && form.watch('paymentMethod') === 'Pet Love') && (
 										<FormField
 											control={form.control}
 											name="appendicularSkeletonThoracicLimbOptions"
@@ -548,7 +548,7 @@ export function ExamRequestPage() {
 												<FormItem>
 													<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Assinalar opção:</FormLabel>
 													<div className="grid grid-cols-2 gap-2 items-top">
-														{appendicularSkeletonThoracicLimbOptions(form.watch('paymentMethod') === 'Pet Love').map(item => (
+														{appendicularSkeletonThoracicLimbOptions.map(item => (
 															<CheckboxItem
 																key={item.id}
 																name="appendicularSkeletonThoracicLimbOptions"
@@ -587,7 +587,7 @@ export function ExamRequestPage() {
 										)}
 									/>
 
-									{form.watch("appendicularSkeletonPelvicLimb") !== "" && (
+									{(form.watch("appendicularSkeletonPelvicLimb") !== "" && form.watch('paymentMethod') === 'Pet Love') && (
 										<FormField
 											control={form.control}
 											name="appendicularSkeletonPelvicLimbOptions"
@@ -595,7 +595,7 @@ export function ExamRequestPage() {
 												<FormItem>
 													<FormLabel required={ExamRequestRequiredFields.includes(field.name)}>Assinalar opção:</FormLabel>
 													<div className="grid grid-cols-2 gap-2 items-top">
-														{appendicularSkeletonPelvicLimbOptions(form.watch('paymentMethod') === 'Pet Love').map(item => (
+														{appendicularSkeletonPelvicLimbOptions.map(item => (
 															<CheckboxItem
 																key={item.id}
 																name="appendicularSkeletonPelvicLimbOptions"
