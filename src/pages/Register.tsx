@@ -156,7 +156,7 @@ export function RegisterPage() {
 						Cadastrar
 					</Button>
 
-					<div className="text-center">
+					<div className="text-center text-sm">
 						Já possui uma conta? <Link to="/login">Faça seu login!</Link>
 					</div>
 				</form>

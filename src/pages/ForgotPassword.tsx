@@ -1,7 +1,5 @@
-import { LoginSchema, Login } from "@/schemas/login-schema"
 import { FormSection } from "@/components/form-section"
 import { MainTitle } from "@/components/main-title"
-import { PasswordInput } from "@/components/password-input"
 import { Button } from "@/components/ui/button"
 import {
 	Form,
@@ -9,34 +7,31 @@ import {
 	FormItem,
 	FormLabel,
 	FormControl,
-	FormMessage
+	FormMessage,
+	FormDescription
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { useAuth } from "@/contexts/auth-context"
-import { Link, useSearchParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { useLoading } from "@/contexts/loading-context"
+import { ForgotPassword, ForgotPasswordSchema } from "@/schemas/forgot-password-schema"
 
-export function LoginPage() {
-	const [searchParams] = useSearchParams()
-	const email = searchParams.get("email")
-	const password = searchParams.get("password")
-
+export function ForgotPasswordPage() {
 	const { isLoading, setIsLoading } = useLoading()
-	const { signIn } = useAuth()
+	const { forgotPassword } = useAuth()
 
-	const form = useForm<Login>({
-		resolver: zodResolver(LoginSchema),
+	const form = useForm<ForgotPassword>({
+		resolver: zodResolver(ForgotPasswordSchema),
 		defaultValues: {
-			email: email ?? "",
-			password: password ?? ""
+			email: ""
 		}
 	})
 
-	async function onSubmit(values: Login) {
+	async function onSubmit(values: ForgotPassword) {
 		setIsLoading(true)
-		await signIn(values)
+		await forgotPassword(values)
 		setIsLoading(false)
 	}
 
@@ -48,13 +43,16 @@ export function LoginPage() {
 					onSubmit={form.handleSubmit(onSubmit)}
 					className="flex flex-col w-full gap-8 mt-5"
 				>
-					<FormSection title="Login" align="center">
+					<FormSection title="Redefinição de senha" align="center">
 						<FormField
 							control={form.control}
 							name="email"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>E-mail</FormLabel>
+									<FormDescription>
+										Enviaremos um e-mail com instruções para redefinir sua senha
+									</FormDescription>
 									<FormControl>
 										<Input placeholder="nome@exemplo.com" {...field} />
 									</FormControl>
@@ -62,31 +60,14 @@ export function LoginPage() {
 								</FormItem>
 							)}
 						/>
-
-						<FormField
-							control={form.control}
-							name="password"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Senha</FormLabel>
-									<FormControl>
-										<PasswordInput placeholder="**********" {...field} />
-									</FormControl>
-									<FormMessage />
-									<div className="text-right text-sm">
-										<Link to="/forgot-password">Esqueceu sua senha?</Link>
-									</div>
-								</FormItem>
-							)}
-						/>
 					</FormSection>
 
 					<Button type="submit" disabled={isLoading}>
-						Entrar
+						Enviar e-mail de recuperação
 					</Button>
 
 					<div className="text-center text-sm">
-						Não possui uma conta? <Link to="/register">Cadastre uma agora!</Link>
+						<Link to="/login">Voltar para o login</Link>
 					</div>
 				</form>
 			</Form>

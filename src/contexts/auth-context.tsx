@@ -11,13 +11,16 @@ import { refreshUserData } from "@/http/user/refresh-user-data"
 import { useLoading } from "@/contexts/loading-context"
 import { UserCreateForm } from "@/schemas/user-schema"
 import { signUpUser } from "@/http/auth/sign-up-user"
+import { ForgotPassword } from "@/schemas/forgot-password-schema"
+import { forgotUserPassword } from "@/http/auth/forgot-user-password"
 
 interface AuthContextProps {
 	isAuthenticated: boolean
 	user: User | null
 	signIn: (login: Login) => Promise<void>
 	signUp: (user: UserCreateForm) => Promise<void>
-	signOut: () => void
+	signOut: () => Promise<void>,
+	forgotPassword: (user: ForgotPassword) => Promise<void>
 }
 
 const AuthContext = createContext({} as AuthContextProps)
@@ -78,17 +81,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		}
 	}
 
-	async function signIn({ email, password }: Login) {
+	async function forgotPassword({ email }: ForgotPassword) {
 		setIsLoading(true)
 
 		try {
-			const { message, data } = await signInUser({ email, password })
-
-			setUser(data.user)
-			localStorage.setItem("soundvetx_token", data.token)
+			const { message } = await forgotUserPassword({ email })
 
 			toast.success(message.clientMessage)
-			navigate("/")
+			navigate("/login")
 		} catch (error: any) {
 			const { message, status } = error as RequestErrorClient
 			toast.error(message.clientMessage)
@@ -122,8 +122,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		}
 	}
 
+	async function signIn({ email, password }: Login) {
+		setIsLoading(true)
+
+		try {
+			const { message, data } = await signInUser({ email, password })
+
+			setUser(data.user)
+			localStorage.setItem("soundvetx_token", data.token)
+
+			toast.success(message.clientMessage)
+			navigate("/")
+		} catch (error: any) {
+			const { message, status } = error as RequestErrorClient
+			toast.error(message.clientMessage)
+
+			if (status === 401) {
+				navigate("/login")
+			}
+		} finally {
+			setIsLoading(false)
+		}
+	}
+
 	return (
-		<AuthContext.Provider value={{ isAuthenticated, user, signUp, signIn, signOut }}>
+		<AuthContext.Provider value={{ isAuthenticated, user, signUp, signIn, signOut, forgotPassword }}>
 			{children}
 		</AuthContext.Provider>
 	)
