@@ -66,9 +66,8 @@ export function ForgotPasswordPage() {
 						Enviar e-mail de recuperação
 					</Button>
 
-					<div className="flex flex-row justify-between text-sm">
+					<div className="text-center text-sm">
 						<Link to="/login">Voltar para o login</Link>
-						<Link to="/reset-password">Redefinir senha</Link>
 					</div>
 				</form>
 			</Form>

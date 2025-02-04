@@ -13,8 +13,7 @@ import { UserCreateForm } from "@/schemas/user-schema"
 import { signUpUser } from "@/http/auth/sign-up-user"
 import { ForgotPassword } from "@/schemas/forgot-password-schema"
 import { forgotUserPassword } from "@/http/auth/forgot-user-password"
-import { resetUserPassword } from "@/http/auth/reset-user-password"
-import { ResetPassword } from "@/schemas/reset-password-schema"
+import { ResetPasswordRequest, resetUserPassword } from "@/http/auth/reset-user-password"
 
 interface AuthContextProps {
 	isAuthenticated: boolean
@@ -23,7 +22,7 @@ interface AuthContextProps {
 	signUp: (user: UserCreateForm) => Promise<void>
 	signOut: () => Promise<void>,
 	forgotPassword: (data: ForgotPassword) => Promise<void>,
-	resetPassword: (data: ResetPassword) => Promise<void>
+	resetPassword: (data: ResetPasswordRequest) => Promise<void>
 }
 
 const AuthContext = createContext({} as AuthContextProps)
@@ -35,7 +34,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const isAuthenticated = !!user
 
 	useEffect(() => {
-		if (!["/login", "/register", "/forgot-passord", "/reset-password"].includes(window.location.pathname)) {
+		if (!["/login", "/register", "/forgot-password", "/reset-password"].includes(window.location.pathname)) {
 			refreshUser()
 		}
 	}, [])
@@ -91,7 +90,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			const { message } = await forgotUserPassword({ email })
 
 			toast.success(message.clientMessage)
-			navigate("/reset-password")
+			navigate("/login")
 		} catch (error: any) {
 			const { message, status } = error as RequestErrorClient
 			toast.error(message.clientMessage)
@@ -104,7 +103,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 		}
 	}
 
-	async function resetPassword({ token, newPassword, confirmNewPassword }: ResetPassword) {
+	async function resetPassword({ token, newPassword, confirmNewPassword }: ResetPasswordRequest) {
 		setIsLoading(true)
 
 		try {

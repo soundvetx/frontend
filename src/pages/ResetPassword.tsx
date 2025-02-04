@@ -14,25 +14,26 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { useAuth } from "@/contexts/auth-context"
 import { useLoading } from "@/contexts/loading-context"
-import { Link } from "react-router-dom"
+import { Link, useSearchParams } from "react-router-dom"
 import { ResetPassword, ResetPasswordSchema } from "@/schemas/reset-password-schema"
-import { Input } from "@/components/ui/input"
 
 export function ResetPasswordPage() {
+	const [searchParams] = useSearchParams()
+	const token = searchParams.get("token") ?? ""
+
 	const { isLoading } = useLoading()
 	const { resetPassword } = useAuth()
 
 	const form = useForm<ResetPassword>({
 		resolver: zodResolver(ResetPasswordSchema),
 		defaultValues: {
-			token: "",
 			newPassword: "",
 			confirmNewPassword: "",
 		}
 	})
 
 	async function onSubmit(values: ResetPassword) {
-		await resetPassword(values)
+		await resetPassword({ ...values, token })
 	}
 
 	return (
@@ -45,23 +46,6 @@ export function ResetPasswordPage() {
 					className="flex flex-col w-full gap-8 mt-5"
 				>
 					<FormSection title="Redefinição de senha" align="center">
-						<FormField
-							control={form.control}
-							name="token"
-							render={({ field }) => (
-								<FormItem>
-									<FormLabel>Código</FormLabel>
-									<FormDescription>
-										Informe o código de redefinição de senha
-									</FormDescription>
-									<FormControl>
-										<Input {...field} />
-									</FormControl>
-									<FormMessage />
-								</FormItem>
-							)}
-						/>
-
 						<FormField
 							control={form.control}
 							name="newPassword"
