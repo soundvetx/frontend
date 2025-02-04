@@ -18,19 +18,29 @@ export async function sendRequest({ endpoint, method, data, token }: Request) {
 	if (response.ok) {
 		return responseData
 	} else {
-		if (response.status === 401 && endpoint !== "/auth/refresh-token") {
-			const refreshToken = localStorage.getItem("soundvetx_refresh_token")
+		if (response.status === 401) {
+			localStorage.removeItem("soundvetx_token")
 
-			if (refreshToken) {
-				try {
-					const { data: refreshTokenData } = await refreshUserToken({ refreshToken })
+			if (endpoint !== "/auth/refresh-token") {
+				const refreshToken = localStorage.getItem("soundvetx_refresh_token")
 
-					localStorage.setItem("soundvetx_token", refreshTokenData.token)
-					localStorage.setItem("soundvetx_refresh_token", refreshTokenData.refreshToken)
+				if (refreshToken) {
+					try {
+						const { data: refreshTokenData } = await refreshUserToken({ refreshToken })
 
-					return await sendRequest({ endpoint, method, data, token })
-				} catch (error) {
-					throw error
+						localStorage.setItem("soundvetx_token", refreshTokenData.token)
+						localStorage.setItem("soundvetx_refresh_token", refreshTokenData.refreshToken)
+
+						return await sendRequest({ endpoint, method, data, token })
+					} catch (error: any) {
+						const { status } = error as RequestErrorClient
+
+						if (status === 401) {
+							localStorage.removeItem("soundvetx_refresh_token")
+						}
+						
+						throw error
+					}
 				}
 			}
 		}
