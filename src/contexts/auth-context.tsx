@@ -136,6 +136,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			const { message } = await signOutUser()
 
 			setUser(null)
+			localStorage.removeItem("soundvetx_token")
+			localStorage.removeItem("soundvetx_refresh_token")
+
 			toast.success(message.clientMessage)
 			navigate("/login")
 		} catch (error: any) {
