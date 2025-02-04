@@ -6,6 +6,7 @@ import { sendRequest } from "@/utils/request";
 interface SignInResponseData {
     user: User;
     token: string;
+    refreshToken: string;
 }
 
 export async function signInUser({ email, password }: Login) {

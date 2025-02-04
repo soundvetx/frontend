@@ -2,6 +2,7 @@ export type Request = {
 	endpoint: string
 	method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
 	data?: any
+	token?: string
 }
 
 export type RequestMessage = {

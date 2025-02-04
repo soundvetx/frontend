@@ -31,13 +31,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const navigate = useNavigate()
 	const { setIsLoading } = useLoading()
 	const [user, setUser] = useState<User | null>(null)
-	const isAuthenticated = !!user
+	const isAuthenticated = !!(localStorage.getItem("soundvetx_token") ?? localStorage.getItem("soundvetx_refresh_token"))
 
 	useEffect(() => {
 		if (!["/login", "/register", "/forgot-password", "/reset-password"].includes(window.location.pathname)) {
 			refreshUser()
 		}
 	}, [])
+
+	useEffect(() => {
+		if (["/login", "/register", "/forgot-password", "/reset-password"].includes(window.location.pathname) && isAuthenticated) {
+			navigate("/")
+		}
+	}, [window.location.pathname])
 
 	async function refreshUser() {
 		try {
@@ -152,6 +158,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 			setUser(data.user)
 			localStorage.setItem("soundvetx_token", data.token)
+			localStorage.setItem("soundvetx_refresh_token", data.refreshToken)
 
 			toast.success(message.clientMessage)
 			navigate("/")

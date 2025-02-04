@@ -29,6 +29,7 @@ export function UsersPage() {
     const navigate = useNavigate()
     const { user: authUser } = useAuth()
     const { setIsLoading } = useLoading()
+    const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true)
     const [users, setUsers] = useState<User[]>([])
     const [search, setSearch] = useState<string>('')
     const [debouncedSearch, setDebouncedSearch] = useState<string>('')
@@ -170,8 +171,13 @@ export function UsersPage() {
         }
     }
 
+    async function loadScreen() {
+        await loadUsers()
+        setIsFirstLoad(false)
+    }
+
     useEffect(() => {
-        loadUsers()
+        loadScreen()
     }, [])
 
     useEffect(() => {
@@ -180,7 +186,9 @@ export function UsersPage() {
     }, [search])
 
     useEffect(() => {
-        loadUsers()
+        if (!isFirstLoad) {
+            loadUsers()
+        }
     }, [debouncedSearch, page, sortOrder])
 
     return (
