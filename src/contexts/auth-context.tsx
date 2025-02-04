@@ -13,6 +13,8 @@ import { UserCreateForm } from "@/schemas/user-schema"
 import { signUpUser } from "@/http/auth/sign-up-user"
 import { ForgotPassword } from "@/schemas/forgot-password-schema"
 import { forgotUserPassword } from "@/http/auth/forgot-user-password"
+import { resetUserPassword } from "@/http/auth/reset-user-password"
+import { ResetPassword } from "@/schemas/reset-password-schema"
 
 interface AuthContextProps {
 	isAuthenticated: boolean
@@ -20,7 +22,8 @@ interface AuthContextProps {
 	signIn: (login: Login) => Promise<void>
 	signUp: (user: UserCreateForm) => Promise<void>
 	signOut: () => Promise<void>,
-	forgotPassword: (user: ForgotPassword) => Promise<void>
+	forgotPassword: (data: ForgotPassword) => Promise<void>,
+	resetPassword: (data: ResetPassword) => Promise<void>
 }
 
 const AuthContext = createContext({} as AuthContextProps)
@@ -32,7 +35,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	const isAuthenticated = !!user
 
 	useEffect(() => {
-		if (!["/login", "/register"].includes(window.location.pathname)) {
+		if (!["/login", "/register", "/forgot-passord", "/reset-password"].includes(window.location.pathname)) {
 			refreshUser()
 		}
 	}, [])
@@ -86,6 +89,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 		try {
 			const { message } = await forgotUserPassword({ email })
+
+			toast.success(message.clientMessage)
+			navigate("/reset-password")
+		} catch (error: any) {
+			const { message, status } = error as RequestErrorClient
+			toast.error(message.clientMessage)
+
+			if (status === 401) {
+				navigate("/login")
+			}
+		} finally {
+			setIsLoading(false)
+		}
+	}
+
+	async function resetPassword({ token, newPassword, confirmNewPassword }: ResetPassword) {
+		setIsLoading(true)
+
+		try {
+			const { message } = await resetUserPassword({ token, newPassword, confirmNewPassword })
 
 			toast.success(message.clientMessage)
 			navigate("/login")
@@ -146,7 +169,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 	}
 
 	return (
-		<AuthContext.Provider value={{ isAuthenticated, user, signUp, signIn, signOut, forgotPassword }}>
+		<AuthContext.Provider value={{ isAuthenticated, user, signUp, signIn, signOut, forgotPassword, resetPassword }}>
 			{children}
 		</AuthContext.Provider>
 	)
